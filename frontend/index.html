@@ -1,0 +1,48 @@
+<!-- frontend/index.html -->
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Frontend Statique + Flask + MySQL</title>
+    <style>
+    body { font-family: Arial; margin: 40px; background: #f5f5f5; }
+    h1 { color: #333; }
+    table { border-collapse: collapse; width: 50%; background: #fff; }
+    th, td { border: 1px solid #ddd; padding: 10px; text-align: left; }
+    th { background-color: #4CAF50; color: white; }
+    tr:nth-child(even) { background-color: #f2f2f2; }
+  </style>
+</head>
+<body>
+  <h1>Frontend Statique + Flask + MySQL</h1>
+  <table id="users-table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nom</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td colspan="2">Chargement...</td></tr>
+    </tbody>
+  </table>
+
+  <script>
+    fetch('http://localhost:5000/api/users')
+      .then(res => res.json())
+      .then(data => {
+        const tbody = document.querySelector("#users-table tbody");
+        tbody.innerHTML = "";
+        data.forEach(user => {
+          const row = document.createElement("tr");
+          row.innerHTML = `<td>${user.id}</td><td>${user.name}</td>`;
+          tbody.appendChild(row);
+        });
+      })
+      .catch(err => {
+        const tbody = document.querySelector("#users-table tbody");
+        tbody.innerHTML = `<tr><td colspan="2" style="color:red;">Erreur : ${err}</td></tr>`;
+      });
+  </script>
+</body>
+</html>
