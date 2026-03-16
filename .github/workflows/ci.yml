@@ -33,7 +33,7 @@ jobs:
         password: ${{ secrets.DOCKER_PASSWORD }}
 
     - name: Build Docker image
-      run: docker compose -f docker-compose.yml build
+      run: docker compose -f Docker-compose.yml build
 
     - name: Push image
-      run: docker compose -f docker-compose.yml push 
+      run: docker compose -f Docker-compose.yml push 
